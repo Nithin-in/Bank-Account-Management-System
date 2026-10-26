@@ -51,13 +51,16 @@ Bank-Account-Management-System/
 ├── tests/
 │   └── BankAccountTest.java
 ├── docs/
-│   └── report.tex
+│   ├── report.tex
+│   ├── report.pdf
+│   └── assets/
+│       └── college-logo.jpg
 ├── .gitignore
 └── README.md
 ```
 
 ## Course report
-The LaTeX course-end report source is at [`docs/report.tex`](docs/report.tex). Fill in the student name, roll number, and faculty details on the title page before submitting.
+The course-end report is available as [`docs/report.pdf`](docs/report.pdf), with editable LaTeX source at [`docs/report.tex`](docs/report.tex). The cover page is filled in for Batch 7: **B Nithin**, roll number **26885A0547**, course facilitator **Mr. Ganesh Deshmukh** (OOP A9601 / OOPL A9602).
 
 ## Limitations
 This is an educational demonstration, not production banking software. Accounts are stored in memory and disappear when the application exits. PINs are stored as plain strings, and account listing is not protected by an administrator role. A real system needs persistent storage, secure credential hashing, authorization, audit logging, concurrency controls, and appropriate compliance controls.

@@ -1,0 +1,127 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xcolor}
+\setcounter{secnumdepth}{3}
+\renewcommand{\thesection}{\arabic{section}}
+\begin{document}
+\begin{titlepage}
+\centering
+\IfFileExists{assets/college-logo.jpg}{\includegraphics[width=3.4cm,height=2.6cm]{assets/college-logo.jpg}}{\vspace{2.6cm}}\\[0.5cm]
+\vspace{1cm}
+{\large\textbf{A Course End Project Report on}}\\[0.5cm]
+{\LARGE\textbf{Bank Account Management System}}\\[1.0cm]
+{\Large Object-Oriented Programming through Java}\\[1.5cm]
+\textbf{Submitted by}\\[0.25cm]
+Batch No. 7\\[0.5cm]
+\begin{tabular}{ll}
+Student Name: & [Enter student name]\\[2mm]
+Roll Number: & [Enter roll number]\\
+\end{tabular}\\[1cm]
+\textbf{Course Facilitator}\\[0.1cm]
+[Enter faculty name and designation]\\[1.5cm]
+{\large\textbf{Department of Computer Science and Engineering}}\\[0.4cm]
+{\large\textbf{Vardhaman College of Engineering, Hyderabad}}\\[0.4cm]
+{\large October 2026}
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+The Bank Account Management System is a console-based Java application designed to demonstrate object-oriented programming through common banking tasks. The user can create accounts, check balances, deposit and withdraw funds, transfer money, and view transaction history. The program separates its responsibilities among the \texttt{Main}, \texttt{Bank}, \texttt{BankAccount}, and transaction classes. Encapsulation protects account data, while inheritance and runtime polymorphism are demonstrated using an abstract transaction class and concrete deposit and withdrawal transactions. Input validation and exception handling reject invalid operations. This project is an educational prototype: account data is stored in memory and is lost when the program exits.
+
+\textbf{Keywords:} Java, OOP, encapsulation, abstraction, inheritance, polymorphism, banking.
+
+\section{Introduction}
+Object-oriented programming organizes software around classes and objects. A banking system is a suitable learning example because it contains entities with data (accounts) and operations (deposits, withdrawals, and transfers). This project provides a menu-based Java application that models these operations and illustrates how OOP concepts improve separation of responsibilities.
+
+\section{Problem Statement}
+Manual tracking of account balances and transactions can lead to errors. A simple computerized model can organize account information, validate requests, and record activity during one program session. The goal is to implement a manageable educational system, not a real banking service.
+
+\section{Objectives}
+\begin{itemize}
+\item Create bank accounts with automatically assigned account numbers.
+\item Provide balance enquiry, deposits, withdrawals, and money transfers.
+\item Maintain transaction history for each account during the current session.
+\item Demonstrate encapsulation, abstraction, composition, inheritance, and polymorphism.
+\item Handle invalid amounts, incorrect PINs, missing accounts, and insufficient balances.
+\end{itemize}
+
+\section{System Requirements}
+\subsection{Hardware}
+A computer capable of running a Java Development Kit and a terminal or Java IDE.
+\subsection{Software}
+Java Development Kit (JDK) 17 or later; terminal/command prompt or an IDE such as IntelliJ IDEA, Eclipse, or Visual Studio Code with Java support.
+
+\section{System Design}
+\subsection{Class Responsibilities}
+\begin{itemize}
+\item \textbf{Main:} Displays the console menu, reads user input, authenticates account operations, and reports results.
+\item \textbf{Bank:} Creates and looks up accounts, manages the account collection, and coordinates transfers.
+\item \textbf{BankAccount:} Encapsulates account number, holder name, PIN, balance, and transaction history. It validates and performs deposits and withdrawals.
+\item \textbf{BankTransaction:} Abstract parent class that validates a positive transaction amount and defines \texttt{execute()}.
+\item \textbf{DepositTransaction and WithdrawalTransaction:} Concrete transaction classes that override \texttt{execute()} to perform the corresponding operation.
+\end{itemize}
+
+\subsection{Program Flow}
+The application displays a menu and waits for the user's choice. For protected operations, it requests an account number and PIN. The system validates input, performs the requested operation, displays the result, and returns to the menu. Selecting Exit ends the program.
+
+\section{Implementation}
+\subsection{Account Creation}
+The user enters a holder name, a four-digit PIN, and an opening balance. The \texttt{Bank} class generates an account number and stores the new \texttt{BankAccount} object.
+\subsection{Balance, Deposit, and Withdrawal}
+The balance enquiry displays the current balance after PIN verification. Deposit and withdrawal requests must have a positive, finite amount. Withdrawal is rejected when the amount exceeds the available balance.
+\subsection{Money Transfer}
+The \texttt{Bank} class checks that both accounts exist and are different, then withdraws from the source and deposits into the destination. The program rejects non-positive amounts and insufficient funds.
+\subsection{Transaction History}
+Each account records its opening balance and transaction activity for the duration of the program. A user must authenticate before viewing the account's history.
+
+\section{Object-Oriented Concepts Used}
+\begin{longtable}{|p{3.2cm}|p{10.5cm}|}\hline
+\textbf{Concept} & \textbf{Application in the project}\\ \hline
+Encapsulation & Account fields are private. Public methods validate requests and control access to balance-changing operations.\\ \hline
+Abstraction & The menu and \texttt{Bank} methods expose useful operations without revealing internal storage details.\\ \hline
+Composition & The \texttt{Bank} object manages a collection of \texttt{BankAccount} objects.\\ \hline
+Inheritance & \texttt{DepositTransaction} and \texttt{WithdrawalTransaction} extend the abstract \texttt{BankTransaction} class.\\ \hline
+Runtime polymorphism & \texttt{BankAccount.executeTransaction()} accepts the abstract parent type; the overridden \texttt{execute()} method is selected for the concrete transaction object.\\ \hline
+Exception handling & Invalid amounts, incorrect PINs, missing accounts, and insufficient funds are handled with meaningful messages.\\ \hline
+\end{longtable}
+
+\section{Testing and Results}
+The Java source and test harness compile with JDK 17 or later. The test harness uses Java assertions and reports the total number of checks that pass.
+\begin{longtable}{|p{3cm}|p{5.5cm}|p{5.2cm}|}\hline
+\textbf{Test case} & \textbf{Action} & \textbf{Expected result}\\ \hline
+Account creation & Create an account with valid details & Account is created and assigned a number.\\ \hline
+Deposit & Deposit a positive amount & Balance increases.\\ \hline
+Invalid deposit & Deposit zero or a negative amount & Request is rejected and balance is unchanged.\\ \hline
+Withdrawal & Withdraw an amount within available balance & Balance decreases.\\ \hline
+Insufficient funds & Withdraw more than the balance & Request is rejected and balance is unchanged.\\ \hline
+Transfer & Transfer between two valid accounts & Source is debited and destination is credited.\\ \hline
+PIN verification & Compare correct and incorrect PIN values & Correct PIN passes; incorrect PIN fails.\\ \hline
+Account lookup & Request an account that does not exist & An error is raised and reported.\\ \hline
+Polymorphic transaction & Execute a deposit through the abstract transaction type & The deposit implementation runs and updates the balance.\\ \hline
+\end{longtable}
+The project was compiled and exercised using an assertion-based test harness. The repository's README documents the commands required to compile the application and run the tests.
+
+\section{Limitations and Future Enhancements}
+Accounts are stored only in memory; therefore, the information is lost when the program exits. PINs are held as plain strings and account listing is a demonstration feature rather than an authenticated administrator function. This software is not suitable for real financial use. Future work could add database persistence, hashed PINs, role-based authorization, stronger transfer atomicity, logging, and a graphical user interface.
+
+\section{Conclusion}
+The Bank Account Management System demonstrates how classes and object-oriented concepts can be applied to a familiar problem. It implements basic account operations with validation and transaction history while providing examples of encapsulation, abstraction, composition, inheritance, and runtime polymorphism.
+
+\section*{References}
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{9}
+\bibitem{oracle-java} Oracle, \textit{Java Documentation}. Available at: \url{https://docs.oracle.com/en/java/}
+\bibitem{java-tutorial} Oracle, \textit{The Java Tutorials: Object-Oriented Programming Concepts}. Available at: \url{https://docs.oracle.com/javase/tutorial/java/concepts/}
+\bibitem{project-repository} Nithin-in, \textit{Bank Account Management System, Batch 7}. Source code repository: \url{https://github.com/Nithin-in/Bank-Account-Management-System}
+\end{thebibliography}
+\end{document}

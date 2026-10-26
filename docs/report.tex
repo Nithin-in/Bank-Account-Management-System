@@ -5,6 +5,7 @@
 \geometry{margin=1in}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\hypersetup{hidelinks}
 \usepackage{longtable}
 \usepackage{xcolor}
 \setcounter{secnumdepth}{3}
@@ -83,6 +84,7 @@ The \texttt{Bank} class checks that both accounts exist and are different, then 
 \subsection{Transaction History}
 Each account records its opening balance and transaction activity for the duration of the program. A user must authenticate before viewing the account's history.
 
+\clearpage
 \section{Object-Oriented Concepts Used}
 \begin{longtable}{|p{3.2cm}|p{10.5cm}|}\hline
 \textbf{Concept} & \textbf{Application in the project}\\ \hline
@@ -116,9 +118,9 @@ Accounts are stored only in memory; therefore, the information is lost when the 
 \section{Conclusion}
 The Bank Account Management System demonstrates how classes and object-oriented concepts can be applied to a familiar problem. It implements basic account operations with validation and transaction history while providing examples of encapsulation, abstraction, composition, inheritance, and runtime polymorphism.
 
-\section*{References}
-\addcontentsline{toc}{section}{References}
+\renewcommand{\bibname}{References}
 \begin{thebibliography}{9}
+\addcontentsline{toc}{chapter}{References}
 \bibitem{oracle-java} Oracle, \textit{Java Documentation}. Available at: \url{https://docs.oracle.com/en/java/}
 \bibitem{java-tutorial} Oracle, \textit{The Java Tutorials: Object-Oriented Programming Concepts}. Available at: \url{https://docs.oracle.com/javase/tutorial/java/concepts/}
 \bibitem{project-repository} Nithin-in, \textit{Bank Account Management System, Batch 7}. Source code repository: \url{https://github.com/Nithin-in/Bank-Account-Management-System}

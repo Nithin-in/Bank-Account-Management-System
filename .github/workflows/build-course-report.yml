@@ -1,0 +1,47 @@
+name: Build Course Report PDF
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "docs/report.tex"
+      - "docs/assets/**"
+      - ".github/workflows/build-course-report.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
+      - name: Compile report PDF
+        working-directory: docs
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error report.tex
+          pdflatex -interaction=nonstopmode -halt-on-error report.tex
+      - name: Upload report PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bank-account-management-course-report
+          path: docs/report.pdf
+          if-no-files-found: error
+          retention-days: 7
+      - name: Commit generated PDF to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/report.pdf
+          if git diff --cached --quiet; then
+            echo "Generated PDF has no changes."
+            exit 0
+          fi
+          git commit -m "Build course report PDF [skip ci]"
+          git push origin HEAD:main
